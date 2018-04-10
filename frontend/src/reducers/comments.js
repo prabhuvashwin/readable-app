@@ -1,29 +1,27 @@
 import * as Types from '../actions/types'
 
 function comments(state={}, action) {
-  const { comments, commentId, postId, updatedComment, comment} = action
   switch(action.type) {
-    case Types.FETCH_COMMENTS:
+    case Types.FETCH_COMMENTS_BY_POST_ID:
     case Types.ADD_COMMENT:
       return {
         ...state,
-        [postId]: comments
+        [action.postId]: action.comments
       }
     case Types.VOTE_COMMENT:
     case Types.UPDATE_COMMENT:
       return {
         ...state,
-        [postId]: state[postId].map(comment => {
-          if(comment.id === commentId) {
-            comment = updatedComment
+        [action.postId]: state[action.postId].map(existingComment => {
+          if(existingComment.id === action.commentId) {
+            existingComment = action.comment
           }
-          return comment
+          return existingComment
         })
       }
     case Types.DELETE_COMMENT:
-      return state
     default:
-    return state
+      return state
   }
 }
 

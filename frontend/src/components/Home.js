@@ -13,7 +13,7 @@ class Home extends Component {
   render() {
     const { posts, categories } = this.props
     return (
-      <div className="filters">
+      <div className="home">
         <div className="categories-list">
           <div className="categories-menu">
             <div className="categories-heading">Categories</div>
@@ -37,7 +37,7 @@ class Home extends Component {
 
         <div className="post-section">
           <div className="post-option">
-            <div className="sort-changer">
+            <div className="sort-option">
               <p>Sort By:   </p>
               <button onClick={() => sortPost("timestamp")}>Time</button>
               <button onClick={() => sortPost("voteScore")}>Vote Score</button>

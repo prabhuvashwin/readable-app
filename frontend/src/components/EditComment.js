@@ -10,15 +10,15 @@ class EditComment extends Component {
     this.props.fetchCommentsByPostId(this.props.match.params.postId)
   }
 
-  updateComment = () => {
+  updateComment = (e) => {
     e.preventDefault()
 
-    if (body === "") {
+    if (e.target.body.value === "") {
       alert('Comment is a mandatory field and cannot be empty')
     } else {
       this.props.updateComment(this.props.comment.id,
         this.props.comment.parentId, Date.now(), e.target.body.value,
-        () => this.props.history.push(`/post/${postId}`))
+        () => this.props.history.push(`/post/${this.props.comment.parentId}`))
     }
   }
 

@@ -66,7 +66,7 @@ class DisplayAllPostInfo extends Component {
           </div>
         )}
 
-        {post && comments && <DisplayComments category={post.category} comments={comments} history={this.props.history} />}
+        {comments && <DisplayComments category={post.category} comments={comments} history={this.props.history} />}
       </div>
     )
   }
@@ -75,7 +75,7 @@ class DisplayAllPostInfo extends Component {
 function mapStateToProps({ posts, comments }, { match }) {
   const post = _.find(posts, { id: match.params.postId })
   return {
-    post: post,
+    post,
     comments: comments[match.params.postId]
   }
 }

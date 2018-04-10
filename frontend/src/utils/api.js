@@ -18,12 +18,6 @@ export const fetchAllPosts = () => {
   }).then(response => response.json())
 }
 
-export const fetchPostsByCategory = (category) => {
-  return fetch(`${baseUrl}/${category}/posts`, {
-    headers
-  }).then(response => response.json())
-}
-
 export const addPost = (post) => {
   return fetch(`${baseUrl}/posts`, {
     method: 'POST',
@@ -50,7 +44,6 @@ export const deletePost = (postId) => {
   }).then(response => response.json())
 }
 
-// option is upVote or downVote
 export const votePost = (postId, option) => {
   return fetch(`${baseUrl}/posts/${postId}`, {
     method: 'POST',

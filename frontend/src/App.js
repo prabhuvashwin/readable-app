@@ -20,7 +20,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
+      <div className="app">
         <div className="app-heading">
           <Link to="/">
             <p>Readable</p>

@@ -21,16 +21,6 @@ export const fetchAllPosts = () => {
   }
 }
 
-export const fetchPostsByCategory = (category) => {
-  return (dispatch) => {
-    API.fetchPostsByCategory(category)
-      .then(posts => dispatch({
-        type: Types.FETCH_POSTS_BY_CATEGORY,
-        posts
-      }))
-  }
-}
-
 export const addPost = (post, callback) => {
   return (dispatch) => {
     API.addPost(post)
@@ -45,9 +35,9 @@ export const addPost = (post, callback) => {
 export const updatePost = (postId, title, body, callback) => {
   return (dispatch) => {
     API.updatePost(postId, title, body)
-      .then(updatedPost => dispatch({
+      .then(post => dispatch({
           type: Types.UPDATE_POST,
-          updatedPost,
+          post,
           postId
       }))
       .then(() => callback())
@@ -69,16 +59,18 @@ export const votePost = (postId, option) => {
     API.votePost(postId, option)
       .then(post => dispatch({
         type: Types.VOTE_POST,
-        postId,
+        post,
         option
       }))
   }
 }
 
+// https://www.npmjs.com/package/sort-by
 export const sortPost = (sortKey) => {
   return (dispatch) => {
     dispatch({
-      type: Types.SORT_POST, sortKey
+      type: Types.SORT_POST,
+      sortKey
     })
   }
 }
@@ -87,7 +79,7 @@ export const fetchCommentsByPostId = (postId) => {
   return (dispatch) => {
     API.fetchCommentsByPostId(postId)
       .then(comments => dispatch({
-        type: Types.FETCH_COMMENTS,
+        type: Types.FETCH_COMMENTS_BY_POST_ID,
         postId,
         comments
       }))
@@ -121,9 +113,9 @@ export const deleteComment = (commentId, callback) => {
 export const voteComment = (commentId, postId, option) => {
   return (dispatch) => {
     API.voteComment(commentId, option)
-      .then(updatedComment => dispatch({
+      .then(comment => dispatch({
         type: Types.VOTE_COMMENT,
-        updatedComment,
+        comment,
         commentId,
         postId
       }))
@@ -133,9 +125,9 @@ export const voteComment = (commentId, postId, option) => {
 export const updateComment = (commentId, postId, timestamp, body, callback) => {
   return (dispatch) => {
     API.updateComment(commentId, timestamp, body)
-      .then(updatedComment => dispatch({
+      .then(comment => dispatch({
         type: Types.UPDATE_COMMENT,
-        updatedComment,
+        comment,
         commentId,
         postId
       }))

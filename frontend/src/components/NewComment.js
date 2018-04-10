@@ -31,8 +31,16 @@ class NewComment extends Component {
       <form onSubmit={this.submitNewComment}>
         <div className="new-comment">
           <h2>New Comment</h2>
-          <input type="text" name="author" className="field-long" placeholder="Enter author name (required):" />
-          <textarea name="body" className="field-long field-textarea" placeholder="Enter comment body (required):"></textarea>
+          <input
+            type="text"
+            name="author"
+            className="field-long"
+            placeholder="Enter author name (required):" />
+          <textarea
+            name="body"
+            className="field-long field-textarea"
+            placeholder="Enter comment body (required):">
+          </textarea>
           <div>
             <button>Submit</button>
             <Link to={`/${post.category}/${this.props.match.params.postId}`}>
@@ -51,5 +59,4 @@ function mapStateToProps({ posts }) {
   }
 }
 
-// https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4
 export default connect(mapStateToProps, { addComment })(NewComment)
