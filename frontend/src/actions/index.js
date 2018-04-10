@@ -1,131 +1,144 @@
 import * as Types from "./types";
 import * as API from "../utils/api"
 
-export const fetchCategories = () => {
+export const fetchAllCategories = () => {
   return (dispatch) => {
     API.fetchAllCategories()
-      .then(data => dispatch({
-        type: Types.FETCH_CATEGORIES,
-        categories: data.categories
-      })
-    )
-  }
-}
-
-export const fetchPosts = () => {
-  return (dispatch) => {
-    API.fetchAllPosts()
-      .then(posts => dispatch({
-        type: Types.FETCH_POSTS,
-        posts
-      })
-    )
-  }
-}
-
-export const fetchPost = postId => {
-  return (dispatch) => {
-    API.fetchPost(postId)
-      .then(post => dispatch({
-        type: Types.FETCH_POST,
-        post
-      })
-    )
-  }
-}
-
-export const addPost = (post) => {
-  return (dispatch) => {
-    API.addPost(post)
-      .then(post => dispatch({
-        type: Types.ADD_POST,
-        post
+      .then(response => dispatch({
+        type: Types.FETCH_ALL_CATEGORIES,
+        categories: response.categories
       }))
   }
 }
 
-export const updatePost = post => {
+export const fetchAllPosts = () => {
   return (dispatch) => {
-    API.updatePost(post)
-      .then(post => dispatch({
-        type: Types.UPDATE_POST,
+    API.fetchAllPosts()
+      .then(posts => dispatch({
+        type: Types.FETCH_ALL_POSTS,
+        posts
+      }))
+  }
+}
+
+export const fetchPostsByCategory = (category) => {
+  return (dispatch) => {
+    API.fetchPostsByCategory(category)
+      .then(posts => dispatch({
+        type: Types.FETCH_POSTS_BY_CATEGORY,
+        posts
+      }))
+  }
+}
+
+export const addPost = (post, callback) => {
+  return (dispatch) => {
+    API.addPost(post)
+      .then(() => dispatch({
+        type: Types.ADD_POST,
         post
-      })
-    )
+      }))
+      .then(() => callback())
   }
 }
 
-export const removePost = postId => {
+export const updatePost = (postId, title, body, callback) => {
   return (dispatch) => {
-    API.removePost(postId)
-      .then(json => dispatch({
-        type: Types.REMOVE_POST,
-        postId
-      })
-    )
+    API.updatePost(postId, title, body)
+      .then(updatedPost => dispatch({
+          type: Types.UPDATE_POST,
+          updatedPost,
+          postId
+      }))
+      .then(() => callback())
   }
 }
 
-export const fetchCommentsByPostId = postId => {
+export const deletePost = (postId, callback) => {
+  return (dispatch) => {
+    API.deletePost(postId)
+      .then(() => dispatch({
+        type: Types.DELETE_POST, postId
+      }))
+      .then(() => callback())
+  }
+}
+
+export const votePost = (postId, option) => {
+  return (dispatch) => {
+    API.votePost(postId, option)
+      .then(post => dispatch({
+        type: Types.VOTE_POST,
+        postId,
+        option
+      }))
+  }
+}
+
+export const sortPost = (sortKey) => {
+  return (dispatch) => {
+    dispatch({
+      type: Types.SORT_POST, sortKey
+    })
+  }
+}
+
+export const fetchCommentsByPostId = (postId) => {
   return (dispatch) => {
     API.fetchCommentsByPostId(postId)
       .then(comments => dispatch({
-        type: Types.FETCH_COMMENT_BY_POST_ID,
+        type: Types.FETCH_COMMENTS,
         postId,
         comments
-      })
-    )
+      }))
   }
 }
 
-export const addComment = comment => {
+export const addComment = (comment, postId, callback) => {
   return (dispatch) => {
     API.addComment(comment)
       .then(comment => dispatch({
+        type: Types.ADD_COMMENT,
+        postId,
+        comment
+      }))
+      .then(() => callback())
+  }
+}
+
+export const deleteComment = (commentId, callback) => {
+  return (dispatch) => {
+    API.deleteComment(commentId)
+      .then(() => dispatch({
+        type: Types.DELETE_COMMENT,
+        commentId
+      }))
+      .then(() => callback())
+
+  }
+}
+
+export const voteComment = (commentId, postId, option) => {
+  return (dispatch) => {
+    API.voteComment(commentId, option)
+      .then(updatedComment => dispatch({
+        type: Types.VOTE_COMMENT,
+        updatedComment,
+        commentId,
+        postId
+      }))
+  }
+}
+
+export const updateComment = (commentId, postId, timestamp, body, callback) => {
+  return (dispatch) => {
+    API.updateComment(commentId, timestamp, body)
+      .then(updatedComment => dispatch({
         type: Types.UPDATE_COMMENT,
-        comment
-      })
-    )
-  }
-}
-
-export const updateComment = comment => {
-  return (dispatch) => {
-    API.updateComment(comment)
-      .then(comment => dispatch({
-        type: Types.UPDATE_COMMENT,
-        comment
-      })
-    )
-  }
-}
-
-export const removeComment = comment => {
-  return (dispatch) => {
-    API.removeComment(comment)
-      .then(comment => dispatch({
-        type: Types.REMOVE_COMMENT,
-        comment
-      })
-    )
-  }
-}
-
-export const voteScore = (option, type, data) => disptach => {
-  return (dispatch) => {
-    API.voteScore(option, type, data)
-      .then(data => {
-        switch (type) {
-          case "posts":
-            updatePost(data)
-            break
-          case "comments":
-            updateComment(data)
-            break
-          default:
-            break
-        }
-      }
-    )
+        updatedComment,
+        commentId,
+        postId
+      }))
+      .then(() => callback())
   }
 }

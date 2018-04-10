@@ -1,24 +1,231 @@
 .App {
   text-align: center;
+  margin: 12px 44px 12px 44px
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.app-heading {
+  display: flex;
+  padding: 12px 24px 12px 24px;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  text-align: center;
+  font-size: 30px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.categories-list {
+  width: 200px;
+  margin-right: 1em;
 }
 
-.App-intro {
-  font-size: large;
+.categories-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.categories-list a {
+  text-decoration: none;
+  color: #9babb4;
+  font-weight: bold;
+}
+
+.categories-list a:hover {
+  color: #596a73;
+}
+
+.categories-list li {
+  padding: 1em;
+}
+
+.categories-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.categories-heading {
+  font-weight: bold;
+  padding: 1em 0;
+}
+
+.categories-list a.link-active {
+  color: #596a73;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.post-section {
+  flex: 2.5;
+}
+
+.post-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.post-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.post {
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  position: relative;
+  margin: 16px 70px 16px 70px;
+  padding: 5px;
+  justify-content: space-between;
+  background: #FAFAFA;
+}
+
+.comment {
+  display: flex;
+  -ms-align-items: center;
+  align-items: flex-start;
+  position: relative;
+  margin: 16px 200px 10px 200px;
+
+  padding: 5px;
+  justify-content: space-around;
+  background: #FAFAFA;
+}
+
+.post-description {
+  flex: 1 0 auto;
+  padding: 0 100px;
+  text-align: left;
+}
+
+.post-likes-comments {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #2f2f2f
+}
+
+/* .post-likes {
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+} */
+
+/* .post-title {
+  margin-top: 0;
+} */
+
+.post-body p {
+  margin-bottom: 0;
+}
+.post-votes {
+  text-align: center;
+  padding: 10px;
+}
+/* .post-detail {
+  position: relative;
+} */
+.post-info {
+  font-size: 16px;
+  margin: 5px;
+  margin-right: 6px;
+}
+
+.sort-changer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 70px;
+}
+
+.comment-author {
+  font-size: 12px;
+  text-align: start;
+  margin-right: 6px;
+}
+
+.post-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 70px;
+  margin-left: 70px;
+}
+
+.comment-options {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  margin-left: 70px;
+}
+
+button {
+  margin: 5px 2px;
+}
+
+.voting-buttons button {
+  width: 30px;
+  height: 30px;
+}
+
+.create-post-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.create-post-body {
+  -webkit-flex: 1 0 auto;
+  -moz-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  -o-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+
+.new-comment,
+.new-post {
+  display: flex;
+  flex-direction: column;
+  margin:10px auto;
+  max-width: 450px;
+  font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.new-comment input[type=text],
+.new-comment textarea,
+.new-post input[type=text],
+.new-post textarea,
+.new-post select {
+  box-sizing: border-box;
+  border:1px solid #BEBEBE;
+  padding: 10px;
+  margin:5px;
+  outline: none;
+}
+
+.new-comment button,
+.new-post button {
+  width: 100px;
+  height: 30px;
+}
+
+.new-comment .field-divided,
+.new-post .field-divided {
+  width: 49%;
+}
+
+.new-comment .field-long,
+.new-post .field-long {
+  width: 100%;
+}
+
+.new-post .field-select{
+  width: 100%;
+}
+
+.new-comment .field-textarea,
+.new-post .field-textarea {
+  height: 100px;
 }

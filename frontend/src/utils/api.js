@@ -1,89 +1,97 @@
-import { randomId } from "./helpers"
+export const baseUrl = 'http://localhost:3001'
 
-export const baseUrl = "http://localhost:3001"
 export const headers = {
-  "Authorization": "whatever-you-want"
+  'Accept': 'application/json',
+  'Authorization': 'None',
+  'Content-Type': 'application/json'
 }
 
 export const fetchAllCategories = () => {
   return fetch(`${baseUrl}/categories`, {
-      headers
-    }).then(res => res.json())
+    headers
+  }).then(response => response.json())
 }
 
 export const fetchAllPosts = () => {
   return fetch(`${baseUrl}/posts`, {
     headers
-  }).then(res => res.json())
+  }).then(response => response.json())
 }
 
-export const fetchPost = (postId) => {
-  return fetch(`${baseUrl}/posts/${postId}`, {
+export const fetchPostsByCategory = (category) => {
+  return fetch(`${baseUrl}/${category}/posts`, {
     headers
-  }).then(res => res.json())
+  }).then(response => response.json())
 }
 
 export const addPost = (post) => {
-  const newPost = {
-    ...post,
-    id: randomId(),
-    timestamp: Date.now()
-  }
   return fetch(`${baseUrl}/posts`, {
-    method: "post",
-    body: JSON.stringify(newPost),
+    method: 'POST',
+    body: JSON.stringify(post),
     headers
-  }).then(res => res.json())
+  })
 }
 
-export const updatePost = (post) => {
-  return fetch(`${baseUrl}/posts/${post.id}`, {
-    method: "put",
-    body: JSON.stringify({ title: post.title, body: post.body }),
-    headers
-  }).then(res => res.json())
-}
-
-export const removePost = (postId) => {
+export const updatePost = (postId, title, body) => {
   return fetch(`${baseUrl}/posts/${postId}`, {
-    method: "delete",
-    headers
-  }).then(res => res.json())
+    method: 'PUT',
+    headers: headers,
+    body: JSON.stringify({
+      title,
+      body
+    })
+  }).then(response => response.json())
+}
+
+export const deletePost = (postId) => {
+  return fetch(`${baseUrl}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: headers
+  }).then(response => response.json())
+}
+
+// option is upVote or downVote
+export const votePost = (postId, option) => {
+  return fetch(`${baseUrl}/posts/${postId}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ option })
+  }).then(response => response.json())
 }
 
 export const fetchCommentsByPostId = (postId) => {
   return fetch(`${baseUrl}/posts/${postId}/comments`, {
     headers
-  }).then(res => res.json())
+  }).then(response => response.json())
 }
 
 export const addComment = (comment) => {
   return fetch(`${baseUrl}/comments`, {
-    method: "post",
-    body: JSON.stringify(comment),
-    headers
-  }).then(res => res.json())
+    method: 'POST',
+    headers,
+    body: JSON.stringify(comment)
+  }).then(response => response.json())
 }
 
-export const updateComment = (comment) => {
-  return fetch(`${baseUrl}/comments/${comment.id}`, {
-    method: "put",
-    body: JSON.stringify({ body: comment.body, author: comment.author }),
+export const deleteComment = (commentId) => {
+  return fetch(`${baseUrl}/comments/${commentId}`, {
+    method: 'DELETE',
     headers
-  }).then(res => res.json())
+  }).then(response => response.json())
 }
 
-export const removeComment = (comment) => {
-  return fetch(`${baseUrl}/comments/${comment.id}`, {
-    method: "delete",
-    headers
-  }).then(res => res.json())
+export const voteComment = (commentId, option) => {
+  return fetch(`${baseUrl}/comments/${commentId}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ option })
+  }).then(response => response.json())
 }
 
-export const voteScore = (option, type, data) => {
-  return fetch(`${baseUrl}/${type}/${data.id}`, {
-    method: "put",
-    body: JSON.stringify({ option: option }),
-    headers
-  }).then(res => res.json())
+export const updateComment = (commentId, timestamp, body) => {
+  return fetch(`${baseUrl}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: headers,
+    body: JSON.stringify({ timestamp, body })
+  }).then(response => response.json())
 }

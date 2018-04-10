@@ -1,37 +1,15 @@
-export const sortByScore = (post1, post2) => {
-  if (post1.voteScore > post2.voteScore) {
-    return 1
-  }
-
-  if (post1.voteScore < post2.voteScore) {
-    return -1
-  }
-
-  return 0
+// https://stackoverflow.com/questions/85116/display-date-time-in-users-locale-format-and-time-offset
+export function formatTimestamp(timestamp) {
+  const d = new Date(timestamp)
+  return d.toLocaleString()
 }
 
-export const sortByDate = (post1, post2) => {
-  if (post1.timestamp > post2.timestamp) {
-    return 1
+// https://stackoverflow.com/questions/45661767/javascript-guid-global-unique-identifier-generator-explanation
+export function guid() {
+  function random() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
-
-  if (post1.timestamp < post2.timestamp) {
-    return -1
-  }
-
-  return 0
-}
-
-export const toTitleCase = (str) => {
-  return str.replace(/\w\S*/g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
-export const randomId = () => {
-  const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-  let result = "";
-  for (var i = 20; i > 0; --i)
-    result += chars[Math.floor(Math.random() * chars.length)];
-  return result;
+  return random() + random() + random() + random()
 }
